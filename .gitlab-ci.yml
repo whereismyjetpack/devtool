@@ -9,7 +9,7 @@ build:
   before_script:
   - pip install poetry
   script:
-  - peotry install
+  - poetry install
   - pyinstaller devtoo/devtool.py --onefile
   artifacts:
     paths:
