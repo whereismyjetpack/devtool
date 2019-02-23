@@ -16,7 +16,7 @@ build:linux:
     name: linux
     paths:
     - dist/devtool
-    expire_in: 30 days
+    expire_in: 2hr
 
 build:mac:
   tags:
@@ -33,7 +33,7 @@ build:mac:
     name: osx
     paths:
     - dist/devtool
-    expire_in: 30 days
+    expire_in: 2hr
 
 release:mac:
   tags:
