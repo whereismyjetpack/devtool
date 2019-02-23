@@ -10,7 +10,7 @@ build:
   - pip install poetry
   script:
   - poetry install
-  - pyinstaller devtoo/devtool.py --onefile
+  - pyinstaller devtool/devtool.py --onefile
   artifacts:
     paths:
     - dist/devtool
