@@ -10,3 +10,8 @@ build:
   - pip install poetry
   script:
   - peotry install
+  - pyinstaller devtoo/devtool.py --onefile
+  artifacts:
+    paths:
+    - dist/devtool
+    expire_in: 30 days
