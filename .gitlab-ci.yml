@@ -54,6 +54,7 @@ release:mac:
     - build:mac
 
 release:linux:
+  stage: release
   only:
     - tags
   before_script:
