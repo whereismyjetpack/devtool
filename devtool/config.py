@@ -33,11 +33,9 @@ def build_config():
         return cfg
 
     if os.path.isfile(".devtool-config.yml"):
-        print("loading config from .devtool-config.yml")
         cfg = open_config_file(".devtool-config.yml")
 
     if os.path.isfile(".devtool-config.yaml"):
-        print("loading config from .devtool-config.yaml")
         cfg = open_config_file(".devtool-config.yaml")
 
     merged = dict(mergedicts(defaults, cfg))
