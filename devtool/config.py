@@ -19,7 +19,7 @@ def mergedicts(dict1, dict2):
             yield (k, dict2[k])
 
 
-def build_config(arguments):
+def build_config():
     defaults = get_defaults()
     cfg = {}
 
@@ -42,17 +42,17 @@ def build_config(arguments):
 
     merged = dict(mergedicts(defaults, cfg))
 
-    if arguments["--skip-compile"]:
-        merged["skip"]["compile"] = True
+    # if arguments["--skip-compile"]:
+    #     merged["skip"]["compile"] = True
 
-    if arguments["--skip-docker"]:
-        merged["skip"]["docker"] = True
+    # if arguments["--skip-docker"]:
+    #     merged["skip"]["docker"] = True
 
-    if arguments["--skip-helm"]:
-        merged["skip"]["helm"] = True
+    # if arguments["--skip-helm"]:
+    #     merged["skip"]["helm"] = True
 
-    if arguments["--suppress-output"]:
-        merged["suppressoutput"] = True
+    # if arguments["--suppress-output"]:
+    #     merged["suppressoutput"] = True
 
     return merged
 
