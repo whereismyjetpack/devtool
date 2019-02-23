@@ -35,7 +35,7 @@ build:mac:
     - dist/devtool
     expire_in: 30 days
 
-release:mac
+release:mac:
   only
   - tags
   tags:
