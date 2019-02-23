@@ -21,8 +21,10 @@ build:mac:
   tags:
   - osx
   stage: build
-  before_script:
-  - pip3 install poetry
+  before_script
+  - python3 -m venv .venv
+  - source .venv/bin/activate
+  - pip install poetry
   script:
   - poetry install
   - poetry run pyinstaller devtool/devtool.py --onefile
