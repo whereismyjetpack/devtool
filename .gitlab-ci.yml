@@ -4,7 +4,7 @@ stages:
 - build
 
 
-build:
+build:linux:
   stage: build
   before_script:
   - pip install poetry
@@ -12,6 +12,22 @@ build:
   - poetry install
   - poetry run pyinstaller devtool/devtool.py --onefile
   artifacts:
+    name: linux
+    paths:
+    - dist/devtool
+    expire_in: 30 days
+
+build:mac:
+  tags:
+  - osx
+  stage: build
+  before_script:
+  - pip install poetry
+  script:
+  - poetry install
+  - poetry run pyinstaller devtool/devtool.py --onefile
+  artifacts:
+    name: osx
     paths:
     - dist/devtool
     expire_in: 30 days
