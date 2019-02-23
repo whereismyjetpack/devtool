@@ -2,7 +2,6 @@ import os
 from jinja2 import Environment, FunctionLoader
 import subprocess
 
-
 def fhr_template(template):
     template = """
 ---
@@ -12,19 +11,19 @@ metadata:
   name: {{ release_name }}
   namespace: {{ namespace }}
   annotations:
-{% if flux_automated %}
+{%- if flux_automated %}
     flux.weave.works/automated: "true"
-{% else %}
+{%- else %}
     flux.weave.works/automated: "false"
-{% endif %}
+{%- endif %}
 spec:
   resetValues: true
   chart:
     repository: {{ helm_repository }}
     name: {{ chart_name }}
-{% if chart_version is defined %}
+{%- if chart_version is defined %}
     version: {{ chart_version }}
-{% endif %}
+{%- endif %}
   releaseName: {{ release_name }}
   values:
     {{ values| indent(4) }}
@@ -35,9 +34,7 @@ spec:
 
 def build_fhr(cfg):
     variables = {}
-    # variables['helm_repository'] = cfg['helm']['repo']['url']
     variables["namespace"] = cfg["namespace"]
-    # variables['chart_name'] = cfg['helm']['chart']
 
     values = subprocess.check_output(
         f"helm inspect values {cfg['helm']['repo']['name']}/{cfg['helm']['chart']}".split()
@@ -71,10 +68,16 @@ def build_fhr(cfg):
         variables["release_name"] = project_name
 
     filename = f"{variables['release_name']}-helmrelease.yaml"
-    f = open(filename, "w")
-    f.write(template.render(variables))
-    f.close()
 
-    print(f"writing out {filename}")
+    def write_file(filename):
+        f = open(filename, "w")
+        print(f"writing out {filename}")
+        f.write(template.render(variables))
+        f.close()
 
-    # return template.render(variables)
+    if os.path.isfile(filename):
+        yn = input(f"{filename} exists, overwrite? [y/n] ")
+        if yn == "y":
+            write_file(filename)
+    else:
+        write_file(filename)
