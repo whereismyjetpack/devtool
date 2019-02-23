@@ -22,7 +22,7 @@ build:mac:
   - osx
   stage: build
   before_script:
-  - pip install poetry
+  - pip3 install poetry
   script:
   - poetry install
   - poetry run pyinstaller devtool/devtool.py --onefile
