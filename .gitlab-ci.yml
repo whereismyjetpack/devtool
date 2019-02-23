@@ -50,3 +50,18 @@ release:mac:
   script:
   - cp dist/devtool dist/devtool-$CI_COMMIT_TAG-OSX
   - python -m gitlab_release $PRIVATE_TOKEN dist/devtool-$CI_COMMIT_TAG-OSX
+  dependencies:
+    - build:osx
+
+release:linux:
+  only:
+    - tags
+  before_script:
+    - python3 -m venv .venv
+    - source .venv/bin/activate
+    - pip install gitlab-release
+  script:
+    - cp dist/devtool dist/devtool-$CI_COMMIT_TAG-linux
+    - python -m gitlab_release $PRIVATE_TOKEN dist/devtool-$CI_COMMIT_TAG-linux
+  dependencies:
+    - build:linux
