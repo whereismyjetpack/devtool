@@ -36,7 +36,7 @@ build:mac:
     expire_in: 30 days
 
 release:mac:
-  only
+  only:
   - tags
   tags:
   - osx
