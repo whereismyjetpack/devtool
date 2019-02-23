@@ -45,6 +45,6 @@ release:mac:
   - python3 -m venv .venv
   - source .venv/bin/activate
   - pip install gitlab-release
-  script
+  script:
   - cp dist/devtool dist/devtool-$CI_COMMIT_TAG-OSX
   - python -m gitlab_release $PRIVATE_TOKEN dist/devtool-$CI_COMMIT_TAG-OSX
