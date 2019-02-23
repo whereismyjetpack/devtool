@@ -2,6 +2,7 @@ image: python:3
 
 stages:
 - build
+- release
 
 
 build:linux:
@@ -33,3 +34,14 @@ build:mac:
     paths:
     - dist/devtool
     expire_in: 30 days
+
+release:mac:
+  tags:
+  - osx
+  stage: release
+  before_script:
+  - python3 -m venv .venv
+  - source .venv/bin/activate
+  - pip install gitlab-release
+  script:
+  - python -m gitlab_release $PRIVATE_TOKEN dist/devtool
