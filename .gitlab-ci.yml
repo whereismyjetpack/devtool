@@ -51,7 +51,7 @@ release:mac:
   - cp dist/devtool dist/devtool-$CI_COMMIT_TAG-OSX
   - python -m gitlab_release $PRIVATE_TOKEN dist/devtool-$CI_COMMIT_TAG-OSX
   dependencies:
-    - build:osx
+    - build:mac
 
 release:linux:
   only:
