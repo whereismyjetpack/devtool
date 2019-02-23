@@ -36,6 +36,8 @@ build:mac:
     expire_in: 30 days
 
 release:mac:
+  only:
+  - tags
   tags:
   - osx
   stage: release
@@ -46,4 +48,5 @@ release:mac:
   - source .venv/bin/activate
   - pip install gitlab-release
   script:
-  - python -m gitlab_release $PRIVATE_TOKEN dist/devtool
+  - cp dist/devtool dist/devtool-$CI_COMMIT_TAG-OSX
+  - python -m gitlab_release $PRIVATE_TOKEN dist/devtool-$CI_COMMIT_TAG-OSX
