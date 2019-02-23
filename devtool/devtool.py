@@ -1,7 +1,10 @@
 """
 Usage:
-  devtool [fhr] [show-config] [--skip-compile] [--skip-docker] [--skip-helm] [--suppress-output]
- 
+  devtool  [options]
+  devtool show-config
+  devtool fhr
+  devtool init
+
 Options:
   --skip-compile                      Skip Compile
   --skip-docker                       Skip Docker
@@ -11,6 +14,7 @@ Options:
 from __future__ import absolute_import
 import collections
 from config import build_config
+from initialize import initialize
 import re
 import os
 import sys
@@ -31,7 +35,6 @@ def parse_args():
     arguments = docopt(__doc__, version="0.0.1")
     return arguments
 
-
 def main():
     arguments = parse_args()
     cfg = build_config(arguments)
@@ -46,6 +49,11 @@ def main():
     if arguments["fhr"]:
         print(build_fhr(cfg))
         sys.exit(0)
+
+    if arguments["init"]:
+        initialize(cfg)
+        sys.exit(0)
+
 
     if cfg["skip"]["compile"]:
         print(colored("Skipping Compile Phase", "red"))
