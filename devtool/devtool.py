@@ -25,9 +25,9 @@ def main():
 
 
 @main.command()
-def init():
-    print("init")
-
+@click.option("--lang", default="java", show_default=True, type=click.Choice(['java', 'golang']))
+def init(lang):
+    initialize(cfg, lang)
 
 @main.command()
 def fhr():
