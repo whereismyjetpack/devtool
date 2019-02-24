@@ -25,8 +25,9 @@ def init(lang):
 
 
 @main.command()
-def fhr():
-    build_fhr(cfg)
+@click.option("--write-file", "-w", is_flag=True, default=False)
+def fhr(write_file):
+    build_fhr(cfg, write_file)
 
 
 @main.command()

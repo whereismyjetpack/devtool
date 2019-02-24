@@ -1,6 +1,7 @@
 import os
 from jinja2 import Environment, FunctionLoader
 import subprocess
+import click
 
 
 def fhr_template(template):
@@ -33,7 +34,7 @@ spec:
     return template
 
 
-def build_fhr(cfg):
+def build_fhr(cfg, wf):
     variables = {}
     variables["namespace"] = cfg["namespace"]
 
@@ -76,9 +77,12 @@ def build_fhr(cfg):
         f.write(template.render(variables))
         f.close()
 
-    if os.path.isfile(filename):
-        yn = input(f"{filename} exists, overwrite? [y/n] ")
-        if yn == "y":
+    if wf:
+        if os.path.isfile(filename):
+            yn = input(f"{filename} exists, overwrite? [y/n] ")
+            if yn == "y":
+                write_file(filename)
+        else:
             write_file(filename)
     else:
-        write_file(filename)
+        click.echo(template.render(variables))
