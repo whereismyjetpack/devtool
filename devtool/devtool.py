@@ -15,6 +15,7 @@ cfg = build_config()
 def main():
     pass
 
+
 @main.command()
 @click.option(
     "--lang", default="java", show_default=True, type=click.Choice(["java", "golang"])
