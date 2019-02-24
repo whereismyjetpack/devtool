@@ -1,7 +1,6 @@
 import os
 import subprocess
 
-
 def build_helm_command(cfg):
     default_sets = [
         "secrets.OAUTH_CLIENT_SECRET=${OAUTH_CLIENT_SECRET}",
@@ -12,16 +11,27 @@ def build_helm_command(cfg):
         "image.tag=%s" % cfg["docker"]["tag"],
     ]
 
-    # TODO add chart version
     helm_set = default_sets + cfg["helm"]["set"]
     values_files = cfg["helm"]["valuesFiles"]
+    chart_version = cfg["helm"].get("chartVersion", None)
 
-    helm_base = "helm upgrade %s --install %s/%s" % (
+    helm_base = "helm upgrade %s --install" % (
         cfg["helm"]["releasename"],
-        cfg["helm"]["repo"]["name"],
-        cfg["helm"]["chart"],
+        # cfg["helm"]["repo"]["name"],
+        # cfg["helm"]["chart"],
     )
+
     helm_command = helm_base.split()
+
+    # if chart_name is a local file, use it else use the repo/chart_name
+    if os.path.isdir(cfg["helm"]["chart"]):
+        helm_command.append(cfg["helm"]["chart"])
+    else:
+        helm_command.append(f'{cfg["helm"]["repo"]["name"]}/{cfg["helm"]["chart"]}')
+
+    if chart_version:
+        helm_command.append("--version")
+        helm_command.append(chart_version)
     for statement in helm_set:
         helm_command.append("--set")
         helm_command.append(statement)
