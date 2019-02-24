@@ -1,14 +1,6 @@
-from __future__ import absolute_import
-import collections
 from config import build_config
 from initialize import initialize
-import re
-import os
-import sys
-import json
 import yaml
-import uuid
-import subprocess
 from helm import build_helm_command, helm_setup
 from minikube import minikube_setup
 from command import run, check_output
@@ -22,7 +14,6 @@ cfg = build_config()
 @click.group(cls=DefaultGroup, default="build", default_if_no_args=True)
 def main():
     pass
-
 
 @main.command()
 @click.option(
