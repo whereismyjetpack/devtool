@@ -2,37 +2,7 @@ import os
 from jinja2 import Environment, FunctionLoader
 import subprocess
 import click
-
-
-def fhr_template(template):
-    template = """
----
-apiVersion: flux.weave.works/v1beta1
-kind: HelmRelease
-metadata:
-  name: {{ release_name }}
-  namespace: {{ namespace }}
-  annotations:
-{%- if flux_automated %}
-    flux.weave.works/automated: "true"
-{%- else %}
-    flux.weave.works/automated: "false"
-{%- endif %}
-spec:
-  resetValues: true
-  chart:
-    repository: {{ helm_repository }}
-    name: {{ chart_name }}
-{%- if chart_version is defined %}
-    version: {{ chart_version }}
-{%- endif %}
-  releaseName: {{ release_name }}
-  values:
-    {{ values| indent(4) }}
-"""
-
-    return template
-
+from templates import fhr
 
 def build_fhr(cfg, wf):
     variables = {}
@@ -44,7 +14,7 @@ def build_fhr(cfg, wf):
 
     variables["values"] = values.decode("utf-8")
 
-    env = Environment(loader=FunctionLoader(fhr_template))
+    env = Environment(loader=FunctionLoader(fhr))
     template = env.get_template("fhr.j2")
     _, current_folder_name = os.path.split(os.getcwd())
 
