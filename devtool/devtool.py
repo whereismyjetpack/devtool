@@ -18,26 +18,37 @@ from click_default_group import DefaultGroup
 
 cfg = build_config()
 
-@click.group(cls=DefaultGroup, default='build', default_if_no_args=True)
+
+@click.group(cls=DefaultGroup, default="build", default_if_no_args=True)
 def main():
     pass
+
 
 @main.command()
 def init():
     print("init")
 
+
 @main.command()
 def fhr():
     build_fhr(cfg)
+
 
 @main.command()
 def show_config():
     print(yaml.dump(cfg, default_flow_style=False))
 
+
 @main.command()
-@click.option("--skip-compile", default=False, is_flag=True, help="Skip compiling the software")
-@click.option("--skip-docker", default=False, is_flag=True, help="Skip Docker build phase")
-@click.option("--skip-helm", default=False, is_flag=True, help="Skip helm install phase")
+@click.option(
+    "--skip-compile", default=False, is_flag=True, help="Skip compiling the software"
+)
+@click.option(
+    "--skip-docker", default=False, is_flag=True, help="Skip Docker build phase"
+)
+@click.option(
+    "--skip-helm", default=False, is_flag=True, help="Skip helm install phase"
+)
 def build(skip_compile, skip_docker, skip_helm):
 
     minikube = minikube_setup(cfg)
@@ -46,7 +57,12 @@ def build(skip_compile, skip_docker, skip_helm):
         click.echo(click.style("Skipping Compile Phase", fg="red"))
     else:
         compile_command = cfg["compile"]["command"]
-        click.echo(click.style(f"Compiling software with the following command: {compile_command}", fg="yellow"))
+        click.echo(
+            click.style(
+                f"Compiling software with the following command: {compile_command}",
+                fg="yellow",
+            )
+        )
         run(compile_command.split(), cfg)
 
     if skip_docker:
@@ -62,7 +78,6 @@ def build(skip_compile, skip_docker, skip_helm):
         click.echo(click.style("Installing Helm Chart", fg="yellow"))
         helm_command = build_helm_command(cfg)
         run(helm_command, cfg)
-
 
 
 if __name__ == "__main__":
