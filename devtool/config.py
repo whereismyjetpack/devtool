@@ -79,5 +79,5 @@ def get_defaults():
     defaults["helm"]["chart"] = "eio-swe-service"
     defaults["helm"]["chartVersion"] = None
     defaults["helm"]["set"] = []
-    
+
     return defaults

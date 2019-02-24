@@ -1,6 +1,7 @@
 import os
 import subprocess
 
+
 def build_helm_command(cfg):
     default_sets = [
         "secrets.OAUTH_CLIENT_SECRET=${OAUTH_CLIENT_SECRET}",

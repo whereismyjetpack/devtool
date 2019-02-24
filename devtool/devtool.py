@@ -73,7 +73,12 @@ def build(skip_compile, skip_docker, skip_helm):
     else:
         click.echo(click.style("Installing Helm Chart", fg="yellow"))
         helm_command = build_helm_command(cfg)
-        click.echo(click.style(f"Running the following Helm command: \n{' '.join(helm_command)}", fg="yellow"))
+        click.echo(
+            click.style(
+                f"Running the following Helm command: \n{' '.join(helm_command)}",
+                fg="yellow",
+            )
+        )
         run(helm_command, cfg)
 
 
