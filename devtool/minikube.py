@@ -1,6 +1,7 @@
 from command import check_output
 from command import run
 import subprocess
+import click
 
 
 def minikube_setup(cfg):
@@ -9,6 +10,7 @@ def minikube_setup(cfg):
     minikube_cpu = cfg.get("minikube", {}).get("cpu", 1)
 
     if not check_output("minikube status".split()):
+        click.echo(click.style("Starting Minikube...", fg="yellow"))
         cmd = "minikube start --memory %s --cpus %s" % (minikube_memory, minikube_cpu)
         run(cmd.split(), cfg)
 
@@ -23,6 +25,7 @@ def minikube_setup(cfg):
         "kubectl config current-context".split()
     ).strip()
     if current_context.decode("utf-8") != "minikube":
+        click.echo(click.style("Setting kubectl context to minikube", fg="yellow"))
         run("kubectl config use-context minikube".split(), cfg)
 
     return minikube
