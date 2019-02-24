@@ -77,6 +77,7 @@ def get_defaults():
     defaults["helm"]["releasename"] = current_folder_name + "-local"
     defaults["helm"]["valuesFiles"] = []
     defaults["helm"]["chart"] = "eio-swe-service"
+    defaults["helm"]["chartVersion"] = None
     defaults["helm"]["set"] = []
-
+    
     return defaults
