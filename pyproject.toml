@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "devtool"
-version = "0.0.1"
+version = "v0.0.8"
 description = "An opinionated CLI for making local development a joy"
 
 license = "MIT"
@@ -18,8 +18,8 @@ keywords = ['k8s', 'helm', 'minikube', 'development']
 
 [tool.poetry.dependencies]
 pyyaml = "^3.13"
-termcolor = "^1.1"
-docopt = "^0.6.2"
 jinja2 = "^2.10"
 pyinstaller = "^3.4"
+click = "^7.0"
+colorama = "^0.4.1"
 
