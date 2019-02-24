@@ -25,9 +25,12 @@ def main():
 
 
 @main.command()
-@click.option("--lang", default="java", show_default=True, type=click.Choice(['java', 'golang']))
+@click.option(
+    "--lang", default="java", show_default=True, type=click.Choice(["java", "golang"])
+)
 def init(lang):
     initialize(cfg, lang)
+
 
 @main.command()
 def fhr():
