@@ -56,7 +56,7 @@ def get_defaults():
     defaults["projectname"] = current_folder_name
     defaults["namespace"] = "eio-swe"
     defaults["compile"] = {}
-    defaults["compile"]["command"] = "mvn clean install"
+    defaults["compile"]["command"] = "mvn clean package -Ddependency-check.skip=true"
     defaults["docker"] = {}
     defaults["docker"]["image"] = current_folder_name
     defaults["docker"]["tag"] = str(uuid.uuid4())
@@ -74,6 +74,7 @@ def get_defaults():
     defaults["helm"]["chart"] = "eio-swe-service"
     defaults["helm"]["chartVersion"] = None
     defaults["helm"]["set"] = []
+    defaults["minikube"] = {}
     defaults["minikube"]["memory"] = 4096
     defaults["minikube"]["cpu"] = 1
 

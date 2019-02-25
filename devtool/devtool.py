@@ -13,6 +13,7 @@ cfg = build_config()
 
 
 @click.group(cls=DefaultGroup, default="build", default_if_no_args=True)
+@click.version_option(version="0.0.1")
 def main():
     pass
 
