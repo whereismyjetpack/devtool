@@ -38,7 +38,7 @@ def build_fhr(cfg, wf, project_name, environment_name, helm_repo_url, chart_name
 
     def write_file(filename):
         f = open(filename, "w")
-        print(f"writing out {filename}")
+        click.echo(click.style(f"writing out {filename}", fg="yellow"))
         f.write(template.render(variables))
         f.close()
 
