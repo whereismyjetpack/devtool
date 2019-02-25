@@ -11,7 +11,7 @@ def minikube_setup(cfg):
     minikube = {}
     minikube_memory = cfg["minikube"]["memory"]
     minikube_cpu = cfg["minikube"]["cpu"]
-
+    
     if not check_output("minikube status".split()):
         click.echo(click.style("Starting Minikube...", fg="yellow"))
         cmd = "minikube start --memory %s --cpus %s" % (minikube_memory, minikube_cpu)

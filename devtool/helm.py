@@ -50,9 +50,9 @@ def build_helm_command(cfg):
 
 
 def helm_setup(cfg):
-    if not check_output("helm status".split()):
+    if not check_output("helm version --tiller-connection-timeout=1".split()):
         click.echo(click.style("Tiller not found, initalizing helm.", fg="yellow"))
-        subprocess.check_call("helm init --wait".split())
+        subprocess.check_output("helm init --wait".split())
 
     repos = [
         f.decode("utf-8")

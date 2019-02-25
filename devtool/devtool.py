@@ -33,7 +33,6 @@ _, current_folder_name = os.path.split(os.getcwd())
 def setup():
     minikube_setup(cfg)
     helm_setup(cfg)
-    print("setup")
 
 
 @main.command()
@@ -100,6 +99,8 @@ def build(skip_compile, skip_docker, skip_helm):
             )
         )
         run(helm_command, cfg)
+
+        click.echo("\U0001f680")
 
 
 if __name__ == "__main__":
