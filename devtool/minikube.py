@@ -5,9 +5,12 @@ import click
 
 
 def minikube_setup(cfg):
+    """
+    Starts minikube if not started, changes kubectl context to "minikube"
+    """
     minikube = {}
-    minikube_memory = cfg.get("minikube", {}).get("memory", 4096)
-    minikube_cpu = cfg.get("minikube", {}).get("cpu", 1)
+    minikube_memory = cfg["minikube"]["memory"]
+    minikube_cpu = cfg["minikube"]["cpu"]
 
     if not check_output("minikube status".split()):
         click.echo(click.style("Starting Minikube...", fg="yellow"))
@@ -24,6 +27,7 @@ def minikube_setup(cfg):
     current_context = subprocess.check_output(
         "kubectl config current-context".split()
     ).strip()
+
     if current_context.decode("utf-8") != "minikube":
         click.echo(click.style("Setting kubectl context to minikube", fg="yellow"))
         run("kubectl config use-context minikube".split(), cfg)

@@ -75,5 +75,7 @@ def get_defaults():
     defaults["helm"]["chart"] = "eio-swe-service"
     defaults["helm"]["chartVersion"] = None
     defaults["helm"]["set"] = []
+    defaults["minikube"]["memory"] = 4096
+    defaults["minikube"]["cpu"] = 1
 
     return defaults
