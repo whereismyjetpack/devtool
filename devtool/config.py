@@ -56,7 +56,7 @@ def get_defaults():
         "projectname": current_folder_name,
         "namespace": "eio-swe",
         "compile": {"command": "mvn clean package -Ddependency-check.skip=true"},
-        "docker": {"image": "foo", "tag": str(uuid.uuid4())},
+        "docker": {"image": current_folder_name, "tag": str(uuid.uuid4())},
         "skip": {"docker": False, "helm": False, "compile": False},
         "suppressoutput": False,
         "helm": {
