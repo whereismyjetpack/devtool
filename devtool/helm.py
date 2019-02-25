@@ -1,5 +1,7 @@
 import os
 import subprocess
+from command import check_output
+import click
 
 
 def build_helm_command(cfg):
@@ -48,6 +50,10 @@ def build_helm_command(cfg):
 
 
 def helm_setup(cfg):
+    if not check_output("helm status".split()):
+        click.echo(click.style("Tiller not found, initalizing helm.", fg="yellow"))
+        subprocess.check_call("helm init --wait".split())
+
     repos = [
         f.decode("utf-8")
         for f in subprocess.check_output("helm repo list".split()).split()

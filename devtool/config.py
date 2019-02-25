@@ -52,30 +52,22 @@ def build_config():
 
 def get_defaults():
     _, current_folder_name = os.path.split(os.getcwd())
-    defaults = {}
-    defaults["projectname"] = current_folder_name
-    defaults["namespace"] = "eio-swe"
-    defaults["compile"] = {}
-    defaults["compile"]["command"] = "mvn clean package -Ddependency-check.skip=true"
-    defaults["docker"] = {}
-    defaults["docker"]["image"] = current_folder_name
-    defaults["docker"]["tag"] = str(uuid.uuid4())
-    defaults["skip"] = {}
-    defaults["skip"]["docker"] = False
-    defaults["skip"]["helm"] = False
-    defaults["skip"]["compile"] = False
-    defaults["suppressoutput"] = False
-    defaults["helm"] = {}
-    defaults["helm"]["repo"] = {}
-    defaults["helm"]["repo"]["url"] = "https://cm.qa.k8s.psu.edu"
-    defaults["helm"]["repo"]["name"] = "cm"
-    defaults["helm"]["releasename"] = current_folder_name + "-local"
-    defaults["helm"]["valuesFiles"] = []
-    defaults["helm"]["chart"] = "eio-swe-service"
-    defaults["helm"]["chartVersion"] = None
-    defaults["helm"]["set"] = []
-    defaults["minikube"] = {}
-    defaults["minikube"]["memory"] = 4096
-    defaults["minikube"]["cpu"] = 1
+    defaults = {
+        "projectname": current_folder_name,
+        "namespace": "eio-swe",
+        "compile": {"command": "mvn clean package -Ddependency-check.skip=true"},
+        "docker": {"image": "foo", "tag": str(uuid.uuid4())},
+        "skip": {"docker": False, "helm": False, "compile": False},
+        "suppressoutput": False,
+        "helm": {
+            "repo": {"url": "https://cm.qa.k8s.psu.edu", "name": "cm"},
+            "releasename": current_folder_name + "-local",
+            "valuesFiles": [],
+            "chart": "eio-swe-service",
+            "chartVersion": None,
+            "set": [],
+        },
+        "minikube": {"memory": 4096, "cpu": 2},
+    }
 
     return defaults

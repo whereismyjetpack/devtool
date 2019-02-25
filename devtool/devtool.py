@@ -30,6 +30,13 @@ _, current_folder_name = os.path.split(os.getcwd())
 
 
 @main.command()
+def setup():
+    minikube_setup(cfg)
+    helm_setup(cfg)
+    print("setup")
+
+
+@main.command()
 @click.option("--write-file", "-w", is_flag=True, default=False)
 @click.option("--project-name", prompt=True, default=current_folder_name)
 @click.option("--environment-name", prompt=True, default="prod")
@@ -59,6 +66,8 @@ def show_config():
 def build(skip_compile, skip_docker, skip_helm):
 
     minikube = minikube_setup(cfg)
+
+    helm_setup(cfg)
 
     if skip_compile:
         click.echo(click.style("Skipping Compile Phase", fg="red"))
