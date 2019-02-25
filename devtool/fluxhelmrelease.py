@@ -9,6 +9,7 @@ def build_fhr(cfg, wf, project_name, environment_name, helm_repo_url, chart_name
     variables = {}
     variables["namespace"] = cfg["namespace"]
 
+
     values = subprocess.check_output(
         f"helm inspect values {cfg['helm']['repo']['name']}/{cfg['helm']['chart']}".split()
     )
