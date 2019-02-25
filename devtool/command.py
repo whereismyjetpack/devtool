@@ -2,7 +2,6 @@ import subprocess
 
 
 def check_output(command):
-    # subprocess.check_output(command, stderr=subprocess.STDOUT)
     try:
         subprocess.check_output(command, stderr=subprocess.STDOUT)
         return True
