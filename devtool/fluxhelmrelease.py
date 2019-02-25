@@ -4,7 +4,8 @@ import subprocess
 import click
 from templates import fhr
 
-def build_fhr(cfg, wf):
+
+def build_fhr(cfg, wf, project_name, environment_name, helm_repo_url, chart_name):
     variables = {}
     variables["namespace"] = cfg["namespace"]
 
@@ -16,15 +17,9 @@ def build_fhr(cfg, wf):
 
     env = Environment(loader=FunctionLoader(fhr))
     template = env.get_template("fhr.j2")
-    _, current_folder_name = os.path.split(os.getcwd())
 
-    project_name = input(f"Project Name [{current_folder_name}]") or current_folder_name
-    environment = input(f"Environment Name: ")
-    chart_repo_url = (
-        input(f"Repo URL [{cfg['helm']['repo']['url']}]") or cfg["helm"]["repo"]["url"]
-    )
-    chart_name = input(f"Chart Name [{cfg['helm']['chart']}]") or cfg["helm"]["chart"]
-    flux_automated = input(f"automate?:") or False
+    # TODO fix this
+    flux_automated = False
 
     if flux_automated:
         variables["flux_automated"] = True
@@ -32,12 +27,12 @@ def build_fhr(cfg, wf):
         variables["flux_automated"] = False
 
     variables["chart_name"] = chart_name
-    variables["helm_repository"] = chart_repo_url
+    variables["helm_repository"] = helm_repo_url
 
-    if environment:
-        variables["release_name"] = f"{project_name}-{environment}"
-    else:
+    if environment_name == "prod":
         variables["release_name"] = project_name
+    else:
+        variables["release_name"] = f"{project_name}-{environment_name}"
 
     filename = f"{variables['release_name']}-helmrelease.yaml"
 
@@ -49,8 +44,7 @@ def build_fhr(cfg, wf):
 
     if wf:
         if os.path.isfile(filename):
-            yn = input(f"{filename} exists, overwrite? [y/n] ")
-            if yn == "y":
+            if click.confirm(f"{filename} exists, overwrite?"):
                 write_file(filename)
         else:
             write_file(filename)

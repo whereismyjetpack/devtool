@@ -1,6 +1,7 @@
 from config import build_config
 from initialize import initialize
 import yaml
+import os
 from helm import build_helm_command, helm_setup
 from minikube import minikube_setup
 from command import run, check_output
@@ -24,10 +25,19 @@ def init(lang):
     initialize(cfg, lang)
 
 
+_, current_folder_name = os.path.split(os.getcwd())
+
+
 @main.command()
 @click.option("--write-file", "-w", is_flag=True, default=False)
-def fhr(write_file):
-    build_fhr(cfg, write_file)
+@click.option("--project-name", prompt=True, default=current_folder_name)
+@click.option("--environment-name", prompt=True, default="prod")
+@click.option("--helm-repo-url", prompt=True, default=cfg["helm"]["repo"]["url"])
+@click.option("--chart-name", prompt=True, default=cfg["helm"]["chart"])
+def fhr(write_file, project_name, environment_name, helm_repo_url, chart_name):
+    build_fhr(
+        cfg, write_file, project_name, environment_name, helm_repo_url, chart_name
+    )
 
 
 @main.command()
