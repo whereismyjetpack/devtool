@@ -64,9 +64,17 @@ def show_config():
 )
 def build(skip_compile, skip_docker, skip_helm):
 
-    minikube = minikube_setup(cfg)
+    if cfg['skip']['helm']:
+        skip_helm = True
+    if cfg['skip']['docker']:
+        skip_docker = True
+    if cfg['skip']['compile']:
+        skip_compile = True
 
+
+    minikube = minikube_setup(cfg)
     helm_setup(cfg)
+
 
     if skip_compile:
         click.echo(click.style("Skipping Compile Phase", fg="red"))
