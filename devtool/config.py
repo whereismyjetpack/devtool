@@ -4,7 +4,6 @@ import yaml
 from pathlib import Path
 
 
-
 def mergedicts(dict1, dict2):
     for k in set(dict1.keys()).union(dict2.keys()):
         if k in dict1 and k in dict2:
@@ -27,11 +26,11 @@ def build_config():
     """
     home = str(Path.home())
     cfg = get_defaults()
-    config_search_paths =  [
+    config_search_paths = [
         f"{home}/.devtool-config.yml",
         f"{home}/.devtool-config.yaml",
         ".devtool-config.yml",
-        ".devtool-config.yaml"
+        ".devtool-config.yaml",
     ]
 
     def open_config_file(filename):
