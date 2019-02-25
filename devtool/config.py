@@ -1,6 +1,8 @@
 import os
 import uuid
 import yaml
+from pathlib import Path
+
 
 
 def mergedicts(dict1, dict2):
@@ -20,8 +22,17 @@ def mergedicts(dict1, dict2):
 
 
 def build_config():
-    defaults = get_defaults()
-    cfg = {}
+    """
+    builds a cfg object by merging defaults, with .devtool-config.yml files in home, or cwd
+    """
+    home = str(Path.home())
+    cfg = get_defaults()
+    config_search_paths =  [
+        f"{home}/.devtool-config.yml",
+        f"{home}/.devtool-config.yaml",
+        ".devtool-config.yml",
+        ".devtool-config.yaml"
+    ]
 
     def open_config_file(filename):
         with open(filename, "r") as stream:
@@ -32,15 +43,12 @@ def build_config():
 
         return cfg
 
-    if os.path.isfile(".devtool-config.yml"):
-        cfg = open_config_file(".devtool-config.yml")
+    for file in config_search_paths:
+        if os.path.isfile(file):
+            this_config = open_config_file(file)
+            cfg = dict(mergedicts(cfg, this_config))
 
-    if os.path.isfile(".devtool-config.yaml"):
-        cfg = open_config_file(".devtool-config.yaml")
-
-    merged = dict(mergedicts(defaults, cfg))
-
-    return merged
+    return cfg
 
 
 def get_defaults():
@@ -52,7 +60,7 @@ def get_defaults():
     defaults["compile"]["command"] = "mvn clean install"
     defaults["docker"] = {}
     defaults["docker"]["image"] = current_folder_name
-    defaults["docker"]["tag"] = uuid.uuid4()
+    defaults["docker"]["tag"] = str(uuid.uuid4())
     defaults["skip"] = {}
     defaults["skip"]["docker"] = False
     defaults["skip"]["helm"] = False
