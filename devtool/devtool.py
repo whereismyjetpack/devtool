@@ -75,28 +75,28 @@ def build(skip_compile, skip_docker, skip_helm):
     helm_setup(cfg)
 
     if skip_compile:
-        click.echo(click.style("Skipping Compile Phase", fg="red"))
+        click.echo(click.style("Skipping Compile Phase\n", fg="red"))
     else:
         compile_command = cfg["compile"]["command"]
         click.echo(
             click.style(
-                f"Compiling software with the following command: {compile_command}",
+                f"Compiling software with the following command: {compile_command}\n",
                 fg="yellow",
             )
         )
         run(compile_command.split(), cfg)
 
     if skip_docker:
-        click.echo(click.style("Skipping Docker Phase", fg="red"))
+        click.echo(click.style("Skipping Docker Phase\n", fg="red"))
     else:
-        click.echo(click.style("Building the Docker Container", fg="yellow"))
+        click.echo(click.style("Building the Docker Container\n", fg="yellow"))
         docker_command = f"docker --host={minikube['DOCKER_HOST']} --tlsverify={minikube['DOCKER_TLS_VERIFY']} --tlscacert={minikube['DOCKER_CERT_PATH']}/ca.pem --tlscert={minikube['DOCKER_CERT_PATH']}/cert.pem --tlskey={minikube['DOCKER_CERT_PATH']}/key.pem build -t {cfg['docker']['image']}:{cfg['docker']['tag']} ."
         run(docker_command.split(), cfg)
 
     if skip_helm:
-        click.echo(click.style("Skipping Helm Phase", fg="red"))
+        click.echo(click.style("Skipping Helm Phase\n", fg="red"))
     else:
-        click.echo(click.style("Installing Helm Chart", fg="yellow"))
+        click.echo(click.style("Installing Helm Chart\n", fg="yellow"))
         helm_command = build_helm_command(cfg)
         click.echo(
             click.style(

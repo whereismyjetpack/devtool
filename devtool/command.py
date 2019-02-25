@@ -1,4 +1,5 @@
 import subprocess
+import sys
 
 
 def check_output(command):
@@ -17,4 +18,4 @@ def run(command, cfg):
             subprocess.check_call(command)
         return True
     except subprocess.CalledProcessError:
-        return False
+        sys.exit(1)
