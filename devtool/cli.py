@@ -1,11 +1,11 @@
-from config import build_config
-from initialize import initialize
+from .config import build_config
+from .initialize import initialize
 import yaml
 import os
-from helm import build_helm_command, helm_setup
-from minikube import minikube_setup
-from command import run, check_output
-from fluxhelmrelease import build_fhr
+from .helm import build_helm_command, helm_setup
+from .minikube import minikube_setup
+from .command import run, check_output
+from .fluxhelmrelease import build_fhr
 import click
 from click_default_group import DefaultGroup
 
@@ -109,5 +109,5 @@ def build(skip_compile, skip_docker, skip_helm):
         click.echo("\U0001f680")
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

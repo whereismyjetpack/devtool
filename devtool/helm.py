@@ -1,6 +1,6 @@
 import os
 import subprocess
-from command import check_output
+from .command import check_output
 import click
 
 

@@ -2,7 +2,7 @@ import os
 from jinja2 import Environment, FunctionLoader
 import subprocess
 import click
-from templates import fhr
+from .templates import fhr
 
 
 def build_fhr(cfg, wf, project_name, environment_name, helm_repo_url, chart_name):

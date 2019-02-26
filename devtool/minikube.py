@@ -1,5 +1,5 @@
-from command import check_output
-from command import run
+from .command import check_output
+from .command import run
 import subprocess
 import click
 
