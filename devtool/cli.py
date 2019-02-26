@@ -109,5 +109,5 @@ def build(skip_compile, skip_docker, skip_helm):
         click.echo("\U0001f680")
 
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
