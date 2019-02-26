@@ -35,6 +35,14 @@ version = "0.4.1"
 
 [[package]]
 category = "main"
+description = "Python 2.7 backport of the \"dis\" module from Python 3.5+"
+name = "dis3"
+optional = false
+python-versions = "*"
+version = "0.1.3"
+
+[[package]]
+category = "main"
 description = "Clean single-source support for Python 3 and 2"
 name = "future"
 optional = false
@@ -105,7 +113,7 @@ python-versions = "*"
 version = "3.13"
 
 [metadata]
-content-hash = "2e2e9fd01f080e7c2446fa0e2700c45b7590b02ce7be1e3dc1348b65e467fe94"
+content-hash = "80e1a4e45f42f133116db34bd90a6603d410b18c2d24229395b3b89cd3665a8c"
 python-versions = "*"
 
 [metadata.hashes]
@@ -113,6 +121,7 @@ altgraph = ["d6814989f242b2b43025cba7161fc1b8fb487a62cd49c49245d6fd01c18ac997", 
 click = ["2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13", "5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"]
 click-default-group = ["ba8c43d9c384e1ea7127484c5fc8f4e1ca759519a64fff10718d53f4b82c412a"]
 colorama = ["05eed71e2e327246ad6b38c540c4a3117230b19679b875190486ddd2d721422d", "f8ac84de7840f5b9c4e3347b3c1eaa50f7e49c2b07596221daec5edaabbd7c48"]
+dis3 = ["30b6412d33d738663e8ded781b138f4b01116437f0872aa56aa3adba6aeff218", "61f7720dd0d8749d23fda3d7227ce74d73da11c2fade993a67ab2f9852451b14", "9259b881fc1df02ed12ac25f82d4a85b44241854330b1a651e40e0c675cb2d1e"]
 future = ["67045236dcfd6816dc439556d009594abf643e5eb48992e36beac09c2ca659b8"]
 jinja2 = ["74c935a1b8bb9a3947c50a54766a969d4846290e1e788ea44c1392163723c3bd", "f84be1bb0040caca4cea721fcbbbbd61f9be9464ca236387158b0feea01914a4"]
 macholib = ["ac02d29898cf66f27510d8f39e9112ae00590adb4a48ec57b25028d6962b1ae1", "c4180ffc6f909bf8db6cd81cff4b6f601d575568f4d5dee148c830e9851eb9db"]
