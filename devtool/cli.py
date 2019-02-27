@@ -10,7 +10,7 @@ import click
 from click_default_group import DefaultGroup
 
 cfg = build_config()
-if cfg['emoji']:
+if cfg["emoji"]:
     from .emoji import positive, skip
 else:
     from .emoji import nopositive as positive
@@ -71,7 +71,10 @@ def show_config():
     "--skip-setup", default=False, is_flag=True, help="Skip minikube/kubectl setup"
 )
 @click.option(
-    "--suppress-output", default=False, is_flag=True, help="Suppress subprocess commands output"
+    "--suppress-output",
+    default=False,
+    is_flag=True,
+    help="Suppress subprocess commands output",
 )
 def build(skip_compile, skip_docker, skip_helm, skip_setup, suppress_output):
 
@@ -81,17 +84,16 @@ def build(skip_compile, skip_docker, skip_helm, skip_setup, suppress_output):
         skip_docker = True
     if cfg["skip"]["compile"]:
         skip_compile = True
-    if cfg['skip']['setup']:
+    if cfg["skip"]["setup"]:
         skip_setup = True
     if suppress_output:
-        cfg['suppressoutput'] = True
+        cfg["suppressoutput"] = True
 
     if skip_setup:
         click.echo(click.style(f"{skip}Skipping Minikube/Helm setup\n", fg="red"))
     else:
         minikube = minikube_setup(cfg)
         helm_setup(cfg)
-
 
     if skip_compile:
         click.echo(click.style(f"{skip}Skipping Compile Phase\n", fg="red"))
@@ -125,9 +127,13 @@ def build(skip_compile, skip_docker, skip_helm, skip_setup, suppress_output):
         docker_command.append("-t")
         docker_command.append(f"{cfg['docker']['image']}:{cfg['docker']['tag']}")
         docker_command.append(".")
-        
-        str_command = ' '.join(docker_command)
-        click.echo(click.style(f"Running the following docker command: {str_command}", fg="yellow"))
+
+        str_command = " ".join(docker_command)
+        click.echo(
+            click.style(
+                f"Running the following docker command: {str_command}", fg="yellow"
+            )
+        )
         run(docker_command, cfg)
 
     if skip_helm:

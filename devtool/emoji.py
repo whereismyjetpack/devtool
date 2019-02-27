@@ -14,13 +14,12 @@ skip = "\U000026d4 "
 
 noskip = ""
 
+
 def nopositive():
     return ""
 
+
 def positive():
-    emojis = [
-        rocket, doughnut, cake, pizza, cupcake, candybar, guitar, popcorn
-    ]
+    emojis = [rocket, doughnut, cake, pizza, cupcake, candybar, guitar, popcorn]
 
     return random.choice(emojis)
-

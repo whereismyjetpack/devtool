@@ -11,7 +11,11 @@ def minikube_env(cfg):
     try:
         docker_env = subprocess.check_output(env).split()
     except subprocess.CalledProcessError:
-        click.echo(click.style(f"minikube docker-env failed. using local docker daemon", fg="red"))
+        click.echo(
+            click.style(
+                f"minikube docker-env failed. using local docker daemon", fg="red"
+            )
+        )
         docker_env = []
 
     for item in docker_env:
@@ -34,7 +38,6 @@ def minikube_setup(cfg):
         click.echo(click.style("Starting Minikube...", fg="yellow"))
         cmd = "minikube start --memory %s --cpus %s" % (minikube_memory, minikube_cpu)
         run(cmd.split(), cfg)
-
 
     current_context = subprocess.check_output(
         "kubectl config current-context".split()
