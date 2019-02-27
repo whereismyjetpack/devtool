@@ -54,6 +54,7 @@ def get_defaults():
     _, current_folder_name = os.path.split(os.getcwd())
     defaults = {
         "projectname": current_folder_name,
+        "emoji": True,
         "namespace": "eio-swe",
         "compile": {"command": "mvn clean package -Ddependency-check.skip=true"},
         "docker": {"image": current_folder_name, "tag": str(uuid.uuid4())},

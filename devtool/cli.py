@@ -8,9 +8,13 @@ from .command import run, check_output
 from .fluxhelmrelease import build_fhr
 import click
 from click_default_group import DefaultGroup
-from .emoji import rocket
 
 cfg = build_config()
+if cfg['emoji']:
+    from .emoji import positive, skip
+else:
+    from .emoji import nopositive as positive
+    from .emoji import noskip as skip
 
 
 @click.group(cls=DefaultGroup, default="build", default_if_no_args=True)
@@ -83,14 +87,14 @@ def build(skip_compile, skip_docker, skip_helm, skip_setup, suppress_output):
         cfg['suppressoutput'] = True
 
     if skip_setup:
-        click.echo(click.style(f"Skipping Minikube/Helm setup\n", fg="red"))
+        click.echo(click.style(f"{skip}Skipping Minikube/Helm setup\n", fg="red"))
     else:
         minikube = minikube_setup(cfg)
         helm_setup(cfg)
 
 
     if skip_compile:
-        click.echo(click.style("Skipping Compile Phase\n", fg="red"))
+        click.echo(click.style(f"{skip}Skipping Compile Phase\n", fg="red"))
     else:
         compile_command = cfg["compile"]["command"]
         click.echo(
@@ -102,7 +106,7 @@ def build(skip_compile, skip_docker, skip_helm, skip_setup, suppress_output):
         run(compile_command.split(), cfg)
 
     if skip_docker:
-        click.echo(click.style("Skipping Docker Phase\n", fg="red"))
+        click.echo(click.style(f"{skip}Skipping Docker Phase\n", fg="red"))
     else:
         click.echo(click.style("Building the Docker Container\n", fg="yellow"))
         minikube = minikube_env(cfg)
@@ -127,7 +131,7 @@ def build(skip_compile, skip_docker, skip_helm, skip_setup, suppress_output):
         run(docker_command, cfg)
 
     if skip_helm:
-        click.echo(click.style("Skipping Helm Phase\n", fg="red"))
+        click.echo(click.style(f"{skip}Skipping Helm Phase\n", fg="red"))
     else:
         click.echo(click.style("Installing Helm Chart\n", fg="yellow"))
         helm_command = build_helm_command(cfg)
@@ -139,7 +143,7 @@ def build(skip_compile, skip_docker, skip_helm, skip_setup, suppress_output):
         )
         run(helm_command, cfg)
 
-        click.echo(rocket)
+    click.echo(positive())
 
 
 if __name__ == "__main__":
