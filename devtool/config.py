@@ -57,7 +57,7 @@ def get_defaults():
         "namespace": "eio-swe",
         "compile": {"command": "mvn clean package -Ddependency-check.skip=true"},
         "docker": {"image": current_folder_name, "tag": str(uuid.uuid4())},
-        "skip": {"docker": False, "helm": False, "compile": False},
+        "skip": {"docker": False, "helm": False, "compile": False, "setup": False },
         "suppressoutput": False,
         "helm": {
             "repo": {"url": "https://cm.qa.k8s.psu.edu", "name": "cm"},
