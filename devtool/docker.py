@@ -20,8 +20,10 @@ def build_docker(cfg):
     docker_command.append("-t")
     docker_command.append(f"{cfg['docker']['image']}:{cfg['docker']['tag']}")
     docker_command.append(".")
- 
+
     str_command = " ".join(docker_command)
-    click.echo(click.style(f"Running the following Docker Command: {str_command}", fg="yellow"))
+    click.echo(
+        click.style(f"Running the following Docker Command: {str_command}", fg="yellow")
+    )
 
     run(docker_command, cfg)

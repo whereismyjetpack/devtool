@@ -12,8 +12,9 @@ from click_default_group import DefaultGroup
 from .emoji import positive, skip, stopwatch
 
 cfg = build_config()
-outputColor = cfg['outputColor']
-dangerColor = cfg['dangerColor']
+outputColor = cfg["outputColor"]
+dangerColor = cfg["dangerColor"]
+
 
 @click.group(cls=DefaultGroup, default="build", default_if_no_args=True)
 @click.version_option(version="0.0.1")
@@ -108,7 +109,9 @@ def build(skip_compile, skip_docker, skip_helm, skip_setup, suppress_output):
     if skip_docker:
         click.echo(click.style(f"{skip}Skipping Docker Phase\n", fg=dangerColor))
     else:
-        click.echo(click.style(f"{stopwatch}Building the Docker Container\n", fg=outputColor))
+        click.echo(
+            click.style(f"{stopwatch}Building the Docker Container\n", fg=outputColor)
+        )
         build_docker(cfg)
 
     if skip_helm:

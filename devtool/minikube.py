@@ -13,7 +13,8 @@ def minikube_env(cfg):
     except subprocess.CalledProcessError:
         click.echo(
             click.style(
-                f"minikube docker-env failed. using local docker daemon", fg=cfg['dangerColor']
+                f"minikube docker-env failed. using local docker daemon",
+                fg=cfg["dangerColor"],
             )
         )
         docker_env = []
