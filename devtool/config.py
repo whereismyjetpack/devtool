@@ -55,6 +55,8 @@ def get_defaults():
     defaults = {
         "projectname": current_folder_name,
         "emoji": True,
+        "outputColor": "yellow",
+        "dangerColor": "red",
         "namespace": "eio-swe",
         "compile": {"command": "mvn clean package -Ddependency-check.skip=true"},
         "docker": {"image": current_folder_name, "tag": str(uuid.uuid4())},
