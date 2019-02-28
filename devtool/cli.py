@@ -9,14 +9,11 @@ from .docker import build_docker
 from .fluxhelmrelease import build_fhr
 import click
 from click_default_group import DefaultGroup
+from .emoji import positive, skip, stopwatch
 
 cfg = build_config()
-if cfg["emoji"]:
-    from .emoji import positive, skip
-else:
-    from .emoji import nopositive as positive
-    from .emoji import noskip as skip
-
+outputColor = cfg['outputColor']
+dangerColor = cfg['dangerColor']
 
 @click.group(cls=DefaultGroup, default="build", default_if_no_args=True)
 @click.version_option(version="0.0.1")
@@ -91,43 +88,43 @@ def build(skip_compile, skip_docker, skip_helm, skip_setup, suppress_output):
         cfg["suppressoutput"] = True
 
     if skip_setup:
-        click.echo(click.style(f"{skip}Skipping Minikube/Helm setup\n", fg="red"))
+        click.echo(click.style(f"{skip}Skipping Minikube/Helm setup\n", fg=dangerColor))
     else:
         minikube_setup(cfg)
         helm_setup(cfg)
 
     if skip_compile:
-        click.echo(click.style(f"{skip}Skipping Compile Phase\n", fg="red"))
+        click.echo(click.style(f"{skip}Skipping Compile Phase\n", fg=dangerColor))
     else:
         compile_command = cfg["compile"]["command"]
         click.echo(
             click.style(
-                f"Compiling software with the following command: {compile_command}\n",
-                fg="yellow",
+                f"{stopwatch}Compiling software with the following command: {compile_command}\n",
+                fg=outputColor,
             )
         )
         run(compile_command.split(), cfg)
 
     if skip_docker:
-        click.echo(click.style(f"{skip}Skipping Docker Phase\n", fg="red"))
+        click.echo(click.style(f"{skip}Skipping Docker Phase\n", fg=dangerColor))
     else:
-        click.echo(click.style("Building the Docker Container\n", fg="yellow"))
+        click.echo(click.style(f"{stopwatch}Building the Docker Container\n", fg=outputColor))
         build_docker(cfg)
 
     if skip_helm:
-        click.echo(click.style(f"{skip}Skipping Helm Phase\n", fg="red"))
+        click.echo(click.style(f"{skip}Skipping Helm Phase\n", fg=dangerColor))
     else:
-        click.echo(click.style("Installing Helm Chart\n", fg="yellow"))
+        click.echo(click.style(f"{stopwatch}Installing Helm Chart\n", fg=outputColor))
         helm_command = build_helm_command(cfg)
         click.echo(
             click.style(
-                f"Running the following Helm command: \n{' '.join(helm_command)}",
-                fg="yellow",
+                f"{stopwatch}Running the following Helm command: \n{' '.join(helm_command)}",
+                fg=outputColor,
             )
         )
         run(helm_command, cfg)
 
-    click.echo(positive())
+    click.echo(click.style(f"Complete! {positive()}", fg=outputColor, bold=True))
 
 
 if __name__ == "__main__":

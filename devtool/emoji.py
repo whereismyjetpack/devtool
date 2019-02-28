@@ -1,4 +1,6 @@
 import random
+from .config import build_config
+cfg = build_config()
 
 rocket = "\U0001f680"
 doughnut = "\U0001f369"
@@ -10,16 +12,17 @@ guitar = "\U0001f3b8"
 popcorn = "\U0001f37f"
 
 
-skip = "\U000026d4 "
-
-noskip = ""
-
-
-def nopositive():
-    return ""
-
+if cfg['emoji']:
+    stopwatch = "\U000023f1 "
+    skip = "\U000026d4 "
+else:
+    stopwatch = ""
+    skip = ""
+    
 
 def positive():
-    emojis = [rocket, doughnut, cake, pizza, cupcake, candybar, guitar, popcorn]
-
-    return random.choice(emojis)
+    if cfg['emoji']:
+        emojis = [rocket, doughnut, cake, pizza, cupcake, candybar, guitar, popcorn]
+        return random.choice(emojis)
+    else:
+        return ""
