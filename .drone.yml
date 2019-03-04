@@ -9,4 +9,3 @@ steps:
   - poetry install
   - date
   - pyinstaller cli.py --onefile
-  - pwd
