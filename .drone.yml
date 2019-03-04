@@ -8,4 +8,4 @@ steps:
   - date
   - pip install poetry
   - poetry install
-  - pyinstaller cli.py --onefile
+  - poetry run pyinstaller cli.py --onefile
