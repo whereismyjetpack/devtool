@@ -5,6 +5,7 @@ steps:
 - name: thing
   image: python:3
   commands:
+  - date
   - pip install poetry
   - poetry install
   - pyinstaller cli.py --onefile
