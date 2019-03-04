@@ -1,0 +1,8 @@
+kind: pipeline
+name: default
+
+steps:
+- name: thing
+  image: python:3
+  commands:
+  - pip install poetry
