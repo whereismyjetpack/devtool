@@ -7,3 +7,4 @@ steps:
   commands:
   - pip install poetry
   - poetry install
+  - date
