@@ -8,4 +8,5 @@ steps:
   - pip install poetry
   - poetry install
   - date
+  - pyinstaller cli.py --onefile
   - pwd
