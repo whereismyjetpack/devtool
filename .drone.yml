@@ -8,3 +8,4 @@ steps:
   - pip install poetry
   - poetry install
   - date
+  - pwd
