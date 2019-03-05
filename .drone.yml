@@ -20,7 +20,7 @@ steps:
     path: /tmp/cache
   commands:
   - chmod +x /tmp/cache/devtool-$DRONE_TAG
-  - /tmp/cache/devtool-$DRONE_TAG
+  - /tmp/cache/devtool-$DRONE_TAG --help
 
 - name: publish
   image: plugins/github-release
@@ -28,6 +28,7 @@ steps:
   - name: cache
     path: /tmp/cache
   settings:
+    title: $DRONE_TAG
     files: /tmp/cache/devtool-$DRONE_TAG
     api_key:
       from_secret: gh_token
