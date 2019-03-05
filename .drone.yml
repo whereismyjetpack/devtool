@@ -11,9 +11,21 @@ steps:
   - pip install poetry
   - poetry install
   - poetry run pyinstaller cli.py --onefile
-  - ls dist/
-  - ls /tmp
+  - cp dist/cli /tmp/cache/devtool-$DRONE_TAG
+  when:
+    event: tag
 
+- name: publish
+  image: plugins/github-release
+  volumes:
+  - name: cache
+    path: /tmp/cache
+  settings:
+    files: /tmp/cache/devtool-$DRONE_TAG
+    api_key:
+      from_secret: gh_token
+  when:
+    event: tag
 
 
 volumes:
