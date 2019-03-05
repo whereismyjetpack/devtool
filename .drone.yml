@@ -27,7 +27,6 @@ steps:
   when:
     event: tag
 
-
 volumes:
 - name: cache
   temp: {}
