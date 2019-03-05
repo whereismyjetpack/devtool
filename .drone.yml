@@ -1,0 +1,11 @@
+kind: pipeline
+name: default
+
+steps:
+- name: thing
+  image: python:3
+  commands:
+  - date
+  - pip install poetry
+  - poetry install
+  - poetry run pyinstaller cli.py --onefile
