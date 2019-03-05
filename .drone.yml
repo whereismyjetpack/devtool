@@ -2,7 +2,7 @@ kind: pipeline
 name: default
 
 steps:
-- name: thing
+- name: build
   image: python:3
   commands:
   - date
