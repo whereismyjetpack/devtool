@@ -18,6 +18,8 @@ steps:
   volumes:
   - name: cache
     path: /tmp/cache
+  commands:
+  - ls /tmp/cache
   settings:
     files: /tmp/cache/devtool-$DRONE_TAG
     api_key:
