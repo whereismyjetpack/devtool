@@ -28,8 +28,7 @@ steps:
   - name: cache
     path: /tmp/cache
   settings:
-    title: $DRONE_TAG
-    files: /tmp/cache/devtool-$DRONE_TAG
+    files: /tmp/cache/devtool*
     api_key:
       from_secret: gh_token
 
