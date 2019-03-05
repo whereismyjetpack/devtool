@@ -13,13 +13,20 @@ steps:
   - poetry run pyinstaller cli.py --onefile
   - cp dist/cli /tmp/cache/devtool-$DRONE_TAG
 
+- name: run 
+  image: python:3
+  volumes:
+  - name: cache
+    path: /tmp/cache
+  commands:
+  - chmod +x /tmp/cache/devtool-$DRONE_TAG
+  - /tmp/cache/devtool-$DRONE_TAG
+
 - name: publish
   image: plugins/github-release
   volumes:
   - name: cache
     path: /tmp/cache
-  commands:
-  - ls /tmp/cache
   settings:
     files: /tmp/cache/devtool-$DRONE_TAG
     api_key:
